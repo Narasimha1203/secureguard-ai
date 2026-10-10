@@ -1,25 +1,31 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
 
 app = FastAPI(
     title="SecureGuard AI API",
     description="Backend API for SecureGuard AI",
-    version="1.0.0",
+    version="1.0.1",
 )
 
-# Allowed frontend addresses
-frontend_url = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
-
+# Frontend domains allowed to call this backend
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://secureguard-ai-lake.vercel.app",
+    "https://secureguard-ai-git-main-narasimha1203.vercel.app",
+    "https://secureguard-35ych18ub-narasimha1203.vercel.app",
     "https://secureguard-3u08dybyn-narasimha1203.vercel.app",
 ]
+
+# Optional production frontend URL from Render environment variables
+frontend_url = os.getenv("FRONTEND_URL", "").strip().rstrip("/")
 
 if frontend_url and frontend_url not in allowed_origins:
     allowed_origins.append(frontend_url)
 
+# Configure CORS before handling requests
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,

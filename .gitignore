@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.*
+*.log
+.vscode/*
+!.vscode/extensions.json
+# Python backend
+backend/venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
